@@ -1,15 +1,19 @@
+import mongoose from "mongoose";
 import app from "./app";
+import config from "./app/config";
 
-const PORT = 3000;
-
-const server = () => {
+async function main() {
   try {
-    app.listen(PORT, () => {
-      console.log(`University Management Server is running on PORT ${PORT}`);
+    await mongoose.connect(config.database_url as string);
+
+    app.listen(config.port, () => {
+      console.log(
+        `University Management Server is running on PORT ${config.port}`
+      );
     });
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-server();
+main();
